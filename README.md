@@ -1,8 +1,7 @@
 # Facebook Clone Project
 
-# Tech Stack:
-
-Python: Backend development using Django, Django REST Framework
+**Tech Stack**
+**Python:** Backend development using Django, Django REST Framework
 Django: Authentication, user management, API endpoints
 JavaScript: Interactive UI, AJAX for real-time updates
 HTML & CSS: Frontend structure and styling
