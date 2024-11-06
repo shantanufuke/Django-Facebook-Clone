@@ -1,7 +1,6 @@
-# Facebook Clone Project
-
-**Tech Stack**
-**Python:** Backend development using Django, Django REST Framework
+Facebook Clone Project
+Tech Stack:
+Python: Backend development using Django, Django REST Framework
 Django: Authentication, user management, API endpoints
 JavaScript: Interactive UI, AJAX for real-time updates
 HTML & CSS: Frontend structure and styling
@@ -42,14 +41,3 @@ Use python manage.py test to run the test suite and ensure everything is working
 Build for Production:
 
 Configure the project for production, and set up any necessary server configurations for deployment.
-Learn More:
-For more information about the tools and libraries used, check out the official documentation:
-
-Django Documentation
-JavaScript Documentation
-HTML Documentation
-CSS Documentation
-WebSockets Documentation
-I hope you find the project useful and inspiring! If you have any feedback or questions, feel free to reach out.
-
-Screenshots:
