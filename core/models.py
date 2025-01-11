@@ -39,7 +39,7 @@ class Post(models.Model):
         max_length=500, choices=VISIBILITY, default="Everyone")
     pid = ShortUUIDField(length=7, max_length=25,
                          alphabet='abcdefghijklmnopqrstuvwxyz')
-    like = models.ManyToManyField(User, blank=True, related_name="likes")
+    likes = models.ManyToManyField(User, blank=True, related_name="likes")
     active = models.BooleanField(default=True)
     slug = models.SlugField(unique=True)
     view = models.PositiveBigIntegerField(default=0)
@@ -60,6 +60,11 @@ class Post(models.Model):
 
     def thumbnail(self):
         return mark_safe('<img src="/media/%s" width="50" height="50" object-fit:"cover" style="border-radius: 5px;" />' % (self.image))
+
+    def post_comments(self):
+        comments = Comment.objects.filter(
+            post=self, active=True).order_by("-id")
+        return comments
 
 
 class Gallery(models.Model):
@@ -121,7 +126,7 @@ class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     date = models.DateTimeField(auto_now_add=True)
-    like = models.ManyToManyField(
+    likes = models.ManyToManyField(
         User, blank=True, related_name="comment_likes")
 
     def __str__(self):
@@ -129,6 +134,11 @@ class Comment(models.Model):
 
     class Meta:
         verbose_name_plural = 'Comment'
+
+    def comment_replies(self):
+        comment_replies = ReplyComment.objects.filter(
+            comment=self, active=True)
+        return comment_replies
 
 
 class ReplyComment(models.Model):
@@ -221,7 +231,7 @@ class GroupPost(models.Model):
         max_length=500, choices=VISIBILITY, default="Everyone")
     pid = ShortUUIDField(length=7, max_length=25,
                          alphabet='abcdefghijklmnopqrstuvwxyz')
-    like = models.ManyToManyField(
+    likes = models.ManyToManyField(
         User, blank=True, related_name="group_post_likes")
     active = models.BooleanField(default=True)
     slug = models.SlugField(unique=True)
@@ -296,7 +306,7 @@ class PagePost(models.Model):
         max_length=500, choices=VISIBILITY, default="Everyone")
     pid = ShortUUIDField(length=7, max_length=25,
                          alphabet='abcdefghijklmnopqrstuvwxyz')
-    like = models.ManyToManyField(
+    likes = models.ManyToManyField(
         User, blank=True, related_name="page_post_likes")
     active = models.BooleanField(default=True)
     slug = models.SlugField(unique=True)

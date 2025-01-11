@@ -4,6 +4,10 @@ from django.contrib.auth import authenticate, login, logout
 from userauths.models import Profile, User
 from userauths.forms import UserRegisterForm
 from django.http import HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
+from core.models import Post, FriendRequest
+
 
 def RegisterView(request):
     if request.user.is_authenticated:
@@ -21,7 +25,8 @@ def RegisterView(request):
         user = authenticate(email=email, password=password)
         login(request, user)
 
-        messages.success(request, f"Hi {full_name}. your accout was created successfully.")
+        messages.success(
+            request, f"Hi {full_name}. your accout was created successfully.")
 
         profile = Profile.objects.get(user=request.user)
         profile.full_name = full_name
@@ -29,10 +34,9 @@ def RegisterView(request):
         profile.save()
 
         return redirect("core:feed")
-    
 
     context = {
-        "form" : form
+        "form": form
     }
 
     return render(request, "userauths/sign-up.html", context)
@@ -60,9 +64,9 @@ def LoginView(request):
         except:
             messages.error(request, "User does not exist")
             return redirect("userauths:sign-up")
-    
-    
+
     return HttpResponseRedirect("/")
+
 
 def LogoutView(request):
     list(messages.get_messages(request))
@@ -71,5 +75,43 @@ def LogoutView(request):
     return redirect("userauths:sign-up")
 
 
+@login_required
+def my_profile(request):
+    profile = request.user.profile
+    posts = Post.objects.filter(active=True, user=request.user).order_by("-id")
+
+    context = {
+        "profile": profile,
+        "posts": posts,
+
+    }
+    return render(request, "userauths/my-profile.html", context)
 
 
+@login_required
+def friend_profile(request, username):
+    profile = Profile.objects.get(user__username=username)
+    posts = Post.objects.filter(active=True, user=profile.user).order_by("-id")
+
+    bool = False
+    bool_friend = False
+
+    sender = request.user
+    receiver = profile.user
+
+    try:
+        friend_request = FriendRequest.objects.get(
+            sender=sender, receiver=receiver)
+        if friend_request:
+            bool = True
+        else:
+            bool = False
+    except:
+        bool = False
+
+    context = {
+        "profile": profile,
+        "posts": posts,
+        "bool": bool,
+    }
+    return render(request, "userauths/friend-profile.html", context)

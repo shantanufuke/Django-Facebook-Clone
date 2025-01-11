@@ -146,6 +146,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "userauths.User"
 
+LOGIN_REDIRECT_URL = 'core:feed'
+LOGOUT_REDIRECT_URL = 'userauths:sign-up'
+LOGIN_URL = 'userauths:sign-up'
+
 JAZZMIN_SETTINGS = {
     'site_header': "Facebook Clone",
     'site_brand': "Connecting people together...",
@@ -160,7 +164,7 @@ JAZZMIN_SETTINGS = {
         "userauths",
         "addon",
     ],
-    
+
     "icons": {
         "admin.LogEntry": "fas fa-file",
 
@@ -168,10 +172,10 @@ JAZZMIN_SETTINGS = {
         "auth.user": "fas fa-user",
 
         "userauths.User": "fas fa-user",
-        "userauths.Profile":"fas fa-address-card",
+        "userauths.Profile": "fas fa-address-card",
     },
 
-    "show_ui_builder" : True
+    "show_ui_builder": True
 }
 JAZZMIN_UI_TWEAKS = {
     "navbar_small_text": False,
