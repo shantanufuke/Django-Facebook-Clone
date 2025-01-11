@@ -22,27 +22,15 @@ Initially, I was focusing on building a basic social network, but the project ev
 ### **Setup Instructions:**
 To run the project locally, follow these steps:
 
-1. **API Keys**: Configure any API keys if needed for services like Firebase or any third-party integrations.
+**Install Dependencies**: 
+Run pip install -r requirements.txt to install all required Python packages.
 
-2. **Environment Configuration**:
-   - Set up your environment variables in a `.env` file with any necessary keys.
-   - Configure Django settings for the database, secret key, and any third-party services.
+ **Database Migrations**: 
+Run python manage.py migrate to set up the database.
 
-3. **Install Dependencies**: 
-   - Run `pip install -r requirements.txt` to install all necessary Python packages.
-
-4. **Database Migrations**: 
-   - Run `python manage.py migrate` to set up the database with the required tables.
-
-5. **Start the Application**: 
-   - Run `python manage.py runserver` to launch the app in development mode.
-   - Open [http://localhost:8000](http://localhost:8000) to view it in your browser.
-
-6. **Run Tests**: 
-   - Use `python manage.py test` to run the test suite and ensure everything is working as expected.
-
-7. **Build for Production**: 
-   - Configure the project for production, and set up any necessary server configurations for deployment.
+**Start the Application**: 
+Run python manage.py runserver to launch the app.
+Open http://localhost:8000 to view it in your browser.
 
 ### **Screenshots:**
 
